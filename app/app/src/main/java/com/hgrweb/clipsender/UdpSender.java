@@ -1,13 +1,12 @@
 package com.hgrweb.clipsender;
 
-
 import java.io.IOException;
 import java.net.*;
 
 public class UdpSender {
-    private DatagramSocket datagramSocket;
-    private DatagramPacket datagramPacket;
     public void sendMsg(byte[] data, String netAddress, int port){
+        DatagramSocket datagramSocket = null;
+        DatagramPacket datagramPacket = null;
         try {
             datagramSocket = new DatagramSocket();
             InetAddress address = InetAddress.getByName(netAddress);

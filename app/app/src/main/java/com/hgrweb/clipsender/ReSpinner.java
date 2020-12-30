@@ -1,11 +1,12 @@
 package com.hgrweb.clipsender;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
 
 public class ReSpinner extends Spinner {
-    public boolean isDropDownMenuShown=false;//标志下拉列表是否正在显示
+    public boolean isDropDownMenuShown = false;//标志下拉列表是否正在显示
 
     public ReSpinner(Context context) {
         super(context);
@@ -36,12 +37,12 @@ public class ReSpinner extends Spinner {
         return super.performClick();
     }
 
-    public boolean isDropDownMenuShown(){
+    public boolean isDropDownMenuShown() {
         return isDropDownMenuShown;
     }
 
-    public void setDropDownMenuShown(boolean isDropDownMenuShown){
-        this.isDropDownMenuShown=isDropDownMenuShown;
+    public void setDropDownMenuShown(boolean isDropDownMenuShown) {
+        this.isDropDownMenuShown = isDropDownMenuShown;
     }
 
     @Override

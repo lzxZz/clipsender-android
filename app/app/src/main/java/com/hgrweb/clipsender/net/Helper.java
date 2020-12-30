@@ -1,10 +1,5 @@
 package com.hgrweb.clipsender.net;
 
-import android.location.Address;
-
-import androidx.annotation.NonNull;
-
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -13,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class Helper {
-
-
-
 
     public static boolean IPv4Vilid(String ip){
         String ip_body[] = ip.split("\\.");
@@ -49,8 +41,6 @@ public class Helper {
                         ips.add(broad.toString().substring(1));
                     }
                 }
-
-
             }
         } catch (SocketException e) {
             e.printStackTrace();

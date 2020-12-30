@@ -3,78 +3,23 @@ package com.hgrweb.clipsender;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 public class ApplicationGlobal extends Application {
 
     private String pwd = "password";
     private int port = 7814;
     private String broadAddress = "255.255.255.255";
-    
-    private boolean is_init = false;
 
     private SharedActivity sender;
 
-    public SharedActivity getSender() {
-        return sender;
+    public ApplicationGlobal(){
+//        ReadData();
     }
 
-    public void setSender(SharedActivity sender) {
-        this.sender = sender;
-    }
-
-    private Context context;
-
-
-    public String getBroadAddress() {
-        return broadAddress;
-    }
-
-    public void setBroadAddress(String address) {
-        broadAddress = address;
-    }
-
-
-    public void init(Context context_) {
-        if (!is_init) {
-            context = context_;
-            // 初始化， 程序首次安装运行， 程序数据初始化
-
-            ReadData();
-            is_init = true;
-        }
-    }
-
-    private String JSON_FILE = "";
-
-
-    private String ReadFileContent(String path) throws IOException {
-        String result = "";
-         for (String line : Files.readAllLines(Paths.get(path))){
-             result += line;
-         }
-
-        return result;
-    }
-
-   
-    void  ReadDate(){
+    public void ReadData() {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String ip_,pass_;
+        String ip_, pass_;
         int port_;
 
         port_ = sharedPref.getInt(getString(R.string.setting_port), 7814);
@@ -88,7 +33,7 @@ public class ApplicationGlobal extends Application {
 
     }
 
-    void SaveDate(){
+    public void SaveData() {
 
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -99,6 +44,7 @@ public class ApplicationGlobal extends Application {
         editor.putString(getString(R.string.setting_ip), getBroadAddress());
         editor.commit();
     }
+
     public String getPwd() {
         return pwd;
     }
@@ -115,5 +61,20 @@ public class ApplicationGlobal extends Application {
         this.port = port;
     }
 
+    public SharedActivity getSender() {
+        return sender;
+    }
+
+    public void setSender(SharedActivity sender) {
+        this.sender = sender;
+    }
+
+    public String getBroadAddress() {
+        return broadAddress;
+    }
+
+    public void setBroadAddress(String address) {
+        broadAddress = address;
+    }
 
 }

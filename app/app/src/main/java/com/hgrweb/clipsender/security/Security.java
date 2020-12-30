@@ -3,8 +3,6 @@ package com.hgrweb.clipsender.security;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.Arrays;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -13,9 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class Security {
 
     byte[] iv_bytes = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, -0x80, 0x10, 0x08, 0x20, 0x04, 0x40, 0x02, -0x80, 0x01};
-
     byte[] zero12 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
 
     private byte[] MD5(String key) {
         char hexDigits[] = {
@@ -49,14 +45,8 @@ public class Security {
     private  byte[] getUnixTimeStamp(){
         long time = System.currentTimeMillis(); //ms
         time = time / 1000 ;  // s
-
         time = time - (time % 300);
-
-
-        System.out.println(time + "");
-
-        int n = Math.toIntExact(time);
-
+        int n = Integer.valueOf(time+"");
 
         byte[] b = new byte[4];
         b[0] = (byte) (n & 0xff);
@@ -65,7 +55,6 @@ public class Security {
         b[3] = (byte) (n >> 24 & 0xff);
 
         return b;
-
     }
     private byte[] generaKey(String src_key) throws UnsupportedEncodingException {
         byte[] key_byte = src_key.getBytes("UTF-8");
@@ -75,10 +64,7 @@ public class Security {
             // 计算MD5,并截取前12字节
             key_byte = MD5(src_key);
         }
-
-
         key_byte = byteMerger(key_byte, getUnixTimeStamp());
-
         return key_byte;
     }
 
@@ -86,8 +72,6 @@ public class Security {
     public byte[] encrypt(String sSrc,  String sKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         byte[] key_byte = generaKey(sKey);
-
-        System.out.println(Arrays.toString(key_byte));
 
         SecretKeySpec skeySpec = new SecretKeySpec(key_byte, "AES");
         IvParameterSpec iv = new IvParameterSpec(iv_bytes);//使用CBC模式，需要一个向量iv，可增加加密算法的强度
