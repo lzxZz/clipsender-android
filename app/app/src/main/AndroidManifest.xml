@@ -2,12 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hgrweb.clipsender">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".ApplicationGlobal"
         android:allowBackup="true"
@@ -17,17 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".SharedActivity"
-
             android:configChanges="orientation|keyboardHidden|keyboard"
-
             android:theme="@style/Theme.Transparent"
-
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"></action>
                 <data android:mimeType="text/plain"></data>
                 <category android:name="android.intent.category.DEFAULT" ></category>
-
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
