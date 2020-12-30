@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">clipsender</string>
+
+    <string name="preference_file_key">com.hgrweb.clipsender.setting_file</string>
+    <string name="setting_ip">255.255.255.255</string>
+    <string name="setting_pass">password</string>
+    <string name="setting_port">7814</string>
 </resources>

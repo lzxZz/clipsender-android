@@ -49,12 +49,9 @@ public class SharedActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        moveTaskToBack(true);
-
         super.onResume();
 
         global.ReadData();
-//        moveTaskToBack(true);
         Intent intent = getIntent();
 
         String action = intent.getAction();
@@ -62,8 +59,6 @@ public class SharedActivity extends AppCompatActivity {
 
         final String data[] = new String[1];
         data[0] = intent.getStringExtra(Intent.EXTRA_TEXT);
-
-
 
         System.out.println("Action" + action);
         System.out.println("Type" + type);

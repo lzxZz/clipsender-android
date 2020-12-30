@@ -168,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView ip_tv = findViewById(R.id.ip_showed);
         final EditText ip_edit = findViewById(R.id.ip_edit);
 
+        ip_tv.setText(global.getBroadAddress() + "");
+
         ip_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,11 +204,12 @@ public class MainActivity extends AppCompatActivity {
                     if (position == ips.size() - 1) {
 
                         // 显示手动输入ip
-                        spn.setVisibility(View.GONE);
                         ip_edit.setText("");
                         ip_edit.setVisibility(View.VISIBLE);
 
                         showSoftInputFromWindow(MainActivity.this, ip_edit);
+
+                        spn.setVisibility(View.GONE);
 
                     } else {
                         global.setBroadAddress(ips.get(position));

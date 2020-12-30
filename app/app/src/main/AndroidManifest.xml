@@ -19,7 +19,8 @@
         <activity android:name=".SharedActivity"
 
             android:configChanges="orientation|keyboardHidden|keyboard"
-            android:launchMode="singleInstance"
+
+            android:theme="@style/Theme.Transparent"
 
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
