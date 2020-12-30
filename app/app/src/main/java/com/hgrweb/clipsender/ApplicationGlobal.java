@@ -9,15 +9,11 @@ public class ApplicationGlobal extends Application {
     private String pwd = "password";
     private int port = 7814;
     private String broadAddress = "255.255.255.255";
-
     private SharedActivity sender;
 
-    public ApplicationGlobal(){
-//        ReadData();
-    }
-
     public void ReadData() {
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+        SharedPreferences sharedPref = 
+            getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String ip_, pass_;
         int port_;
@@ -29,12 +25,9 @@ public class ApplicationGlobal extends Application {
         setPort(port_);
         setBroadAddress(ip_);
         setPwd(pass_);
-
-
     }
 
     public void SaveData() {
-
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -76,5 +69,4 @@ public class ApplicationGlobal extends Application {
     public void setBroadAddress(String address) {
         broadAddress = address;
     }
-
 }

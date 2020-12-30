@@ -6,6 +6,7 @@ import android.widget.Spinner;
 
 
 public class ReSpinner extends Spinner {
+
     public boolean isDropDownMenuShown = false;//标志下拉列表是否正在显示
 
     public ReSpinner(Context context) {
@@ -26,8 +27,10 @@ public class ReSpinner extends Spinner {
         boolean sameSelected = position == getSelectedItemPosition();
         super.setSelection(position, animate);
         if (sameSelected) {
-            // 如果选择项是Spinner当前已选择的项,则 OnItemSelectedListener并不会触发,因此这里手动触发回调
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            // 如果选择项是Spinner当前已选择的项,
+            // 则 OnItemSelectedListener并不会触发,因此这里手动触发回调
+            getOnItemSelectedListener().onItemSelected(
+                this, getSelectedView(), position, getSelectedItemId());
         }
     }
 

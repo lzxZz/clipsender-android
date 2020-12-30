@@ -2,3 +2,5 @@
 app/.gradle/
 app/.idea/
 app/app/build/
+app/.settings/
+app/.project

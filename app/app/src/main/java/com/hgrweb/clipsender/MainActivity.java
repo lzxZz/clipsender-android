@@ -23,11 +23,12 @@ import com.hgrweb.clipsender.net.Helper;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
-    static String Head = "CLIPSEND";
 
+    static String Head = "CLIPSEND";
     ApplicationGlobal global;
     boolean spn_lock = false;
     LinkedList<Integer> select_index = new LinkedList<>();
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText port_edit = findViewById(R.id.port_edit);
 
         port_tv.setText(global.getPort() + "");
-
         port_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         final TextView pass_tv = findViewById(R.id.pass);
         pass_tv.setText(global.getPwd());
         final EditText pass_edit = findViewById(R.id.pass_edit);
@@ -124,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText ip_edit = findViewById(R.id.ip_edit);
 
         ip_tv.setText(global.getBroadAddress() + "");
-
         ip_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,13 +165,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     spn_lock = false;
                 }
-
             }
-
             // 永远不会触发， 因为代码设置默认选中第一个
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -206,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public static void showSoftInputFromWindow(Activity activity, EditText editText) {
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
@@ -218,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
     }
-
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

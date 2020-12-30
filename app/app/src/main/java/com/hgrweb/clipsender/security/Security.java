@@ -1,21 +1,22 @@
 package com.hgrweb.clipsender.security;
 
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-
 public class Security {
 
-    byte[] iv_bytes = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, -0x80, 0x10, 0x08, 0x20, 0x04, 0x40, 0x02, -0x80, 0x01};
-    byte[] zero12 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    byte[] iv_bytes = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, -0x80, 
+                        0x10, 0x08, 0x20, 0x04, 0x40, 0x02, -0x80, 0x01};
+    byte[] zero12 = {   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
     private byte[] MD5(String key) {
         char hexDigits[] = {
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+                'A', 'B', 'C', 'D', 'E', 'F'
         };
         try {
             byte[] btInput = key.getBytes();
@@ -28,7 +29,6 @@ public class Security {
             byte[] result = new byte[12];
             System.arraycopy(md, 0, result, 0, 12 );
             return result;
-
         } catch (Exception e) {
             return null;
         }
@@ -36,10 +36,8 @@ public class Security {
 
     private byte[] appendZeorTo12Byte(byte[] source){
         byte[] new_byte = new byte[12];
-
         System.arraycopy(source, 0, new_byte, 0, source.length);
         System.arraycopy(zero12, 0, new_byte, source.length, 12-source.length);
-
         return new_byte;
     }
     private  byte[] getUnixTimeStamp(){
@@ -68,7 +66,6 @@ public class Security {
         return key_byte;
     }
 
-    // 加密
     public byte[] encrypt(String sSrc,  String sKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         byte[] key_byte = generaKey(sKey);
