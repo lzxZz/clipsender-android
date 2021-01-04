@@ -54,7 +54,11 @@ public class ReSpinner extends Spinner {
         boolean sameSelected = position == getSelectedItemPosition();
         super.setSelection(position);
         if (sameSelected) {
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            getOnItemSelectedListener()
+                .onItemSelected(    this, 
+                                    getSelectedView(), 
+                                    position, 
+                                    getSelectedItemId());
         }
     }
 

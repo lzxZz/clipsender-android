@@ -1,5 +1,15 @@
+# 2020-01-03更新
+1. 添加GLPv2开源协议
+2. 移除不必要的代码
+3. 格式化代码
+4. 修复能够同时激活两个输入框焦点的bug
+5. 修复back键无法退出软键盘和焦点的feature
+
 # 2020-12-30更新
-1. 使用`SharedPreferences`替代`json`保存数据，避免`Files`下`Read`和`Write`操作需要`Android.O`以上sdk版本，兼容到低版本
+1. 使用`SharedPreferences`替代`json`保存数据，
+    避免`Files`下`Read`和`Write`操作需要`Android.O`以上sdk版本，兼容到低版本
 2. 修复了在分享数据之后出现的短暂黑屏现象。
 3. 修改最低适配安卓版本到4.4
+
+
 

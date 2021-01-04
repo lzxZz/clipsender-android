@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 import com.hgrweb.clipsender.security.Security;
 
+import static com.hgrweb.clipsender.security.Security.byteMerger;
 
 public class SharedActivity extends AppCompatActivity {
 
@@ -53,15 +54,21 @@ public class SharedActivity extends AppCompatActivity {
                                 json.put("Content", data[0]);
 
                                 Security security = new Security();
-                                byte[] datum = security.encrypt(json.toString(), global.getPwd());
-                                byte[] head = Head.getBytes(StandardCharsets.UTF_8);
+                                byte[] datum = security.encrypt(
+                                                json.toString(), 
+                                                global.getPwd());
+                                byte[] head = Head.getBytes(
+                                                StandardCharsets.UTF_8);
                                 byte[] new_data = byteMerger(head, datum);
 
                                 UdpSender sender = new UdpSender();
                                 Looper.prepare();
-                                sender.sendMsg(new_data, global.getBroadAddress(), global.getPort());
-                                Toast.makeText(SharedActivity.this, "分享至" + global.getBroadAddress(), Toast.LENGTH_LONG).show();
-
+                                sender.sendMsg( new_data, 
+                                                global.getBroadAddress(), 
+                                                global.getPort());
+                                Toast.makeText( SharedActivity.this, 
+                                            "分享至" + global.getBroadAddress(), 
+                                                Toast.LENGTH_LONG).show();
                                 global.getSender().finish();
                                 Looper.loop();
                             } catch (Exception e) {

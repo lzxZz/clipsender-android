@@ -41,7 +41,6 @@ public class Helper {
                         networkInterface.getInterfaceAddresses()) {
                     InetAddress broad = address.getBroadcast();
                     if (broad != null) {
-                        System.out.println(broad);
                         ips.add(broad.toString().substring(1));
                     }
                 }

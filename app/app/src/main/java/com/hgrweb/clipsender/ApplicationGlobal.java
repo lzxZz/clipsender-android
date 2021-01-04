@@ -19,8 +19,10 @@ public class ApplicationGlobal extends Application {
         int port_;
 
         port_ = sharedPref.getInt(getString(R.string.setting_port), 7814);
-        ip_ = sharedPref.getString(getString(R.string.setting_ip), "255.255.255.255");
-        pass_ = sharedPref.getString(getString(R.string.setting_pass), "password");
+        ip_ = sharedPref.getString(
+                getString(R.string.setting_ip), "255.255.255.255");
+        pass_ = sharedPref.getString(
+                getString(R.string.setting_pass), "password");
 
         setPort(port_);
         setBroadAddress(ip_);
@@ -28,8 +30,9 @@ public class ApplicationGlobal extends Application {
     }
 
     public void SaveData() {
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getApplicationContext()
+            .getSharedPreferences(getString(
+                R.string.preference_file_key), Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(getString(R.string.setting_port), getPort());

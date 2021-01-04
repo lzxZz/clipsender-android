@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/Theme.AppCompat.Light"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

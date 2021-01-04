@@ -1,11 +1,11 @@
 package com.hgrweb.clipsender;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.hgrweb.clipsender.net.Helper;
-
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 port_edit.setVisibility(View.VISIBLE);
-                showSoftInputFromWindow(MainActivity.this, port_edit);
+                showSoftInput(MainActivity.this, port_edit);
+                focusView =port_edit;
                 port_tv.setVisibility(View.GONE);
             }
         });
@@ -65,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
                         int port = 0;
                         try {
                             port_str = String.valueOf(port_edit.getText());
+                            // 处理端口输入框为空的情况
+                            if (port_str.equals("")){
+                                port_edit.setVisibility(View.GONE);
+                                port_tv.setVisibility(View.VISIBLE);
+                                Toast.makeText( MainActivity.this,
+                                        "端口号不能为空",
+                                        LENGTH_SHORT).show();
+                                return;
+                            }
                             port = Integer.valueOf(port_str);
                         } catch (Exception e) {
                             port_edit.requestFocus();
@@ -82,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
                         port_edit.setVisibility(View.GONE);
                         port_tv.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, e.getMessage(), LENGTH_SHORT).show();
+                        Toast.makeText( MainActivity.this, 
+                                        e.getMessage(), 
+                                        LENGTH_SHORT).show();
                     }
                 }
             }
@@ -96,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pass_edit.setVisibility(View.VISIBLE);
-                showSoftInputFromWindow(MainActivity.this, pass_edit);
+                showSoftInput(MainActivity.this, pass_edit);
+                focusView = pass_edit;
                 pass_tv.setVisibility(View.GONE);
             }
         });
@@ -110,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
                         global.setPwd(pass_str);
                         pass_tv.setText(pass_str);
                     } else {
-                        Toast.makeText(MainActivity.this, "输入空密码", Toast.LENGTH_LONG);
+                        Toast.makeText( MainActivity.this, 
+                                        "输入空密码", 
+                                        Toast.LENGTH_LONG).show();
                     }
                     pass_edit.setVisibility(View.GONE);
                     pass_tv.setVisibility(View.VISIBLE);
@@ -139,25 +153,32 @@ public class MainActivity extends AppCompatActivity {
         }
         ips.add("手动输入ip");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, ips);
+        ArrayAdapter<String> adapter = 
+            new ArrayAdapter<String>(   MainActivity.this, 
+                                        android.R.layout.simple_list_item_1, 
+                                        ips);
         spn.setAdapter(adapter);
 
         select_index.add(0);
 
         spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected( AdapterView<?> parent, 
+                                        View view, 
+                                        int position, long id) {
                 if (!spn_lock) {
                     if (position == ips.size() - 1) {
                         // 显示手动输入ip
                         ip_edit.setText("");
                         ip_edit.setVisibility(View.VISIBLE);
-                        showSoftInputFromWindow(MainActivity.this, ip_edit);
+                        focusView = ip_edit;
+                        showSoftInput(MainActivity.this, ip_edit);
                         spn.setVisibility(View.GONE);
                     } else {
                         global.setBroadAddress(ips.get(position));
                         ip_tv.setText(global.getBroadAddress());
                         ip_tv.setVisibility(View.VISIBLE);
+
                         spn.setVisibility(View.GONE);
                         select_index.pop();
                         select_index.add(position);
@@ -186,13 +207,15 @@ public class MainActivity extends AppCompatActivity {
                         spn_lock = true;
                         return;
                     } else {
-                        if (Helper.IPv4Vilid(ip_str)) { // 数据娇艳通过
+                        if (Helper.IPv4Vilid(ip_str)) { // 数据校验通过
                             global.setBroadAddress(ip_str);
                             ip_tv.setText(global.getBroadAddress());
                             ip_tv.setVisibility(View.VISIBLE);
                             ip_edit.setVisibility(View.GONE);
                         } else {
-                            Toast.makeText(MainActivity.this, "非法IPv4地址！", Toast.LENGTH_LONG).show();
+                            Toast.makeText( MainActivity.this, 
+                                            "非法IPv4地址！", 
+                                            Toast.LENGTH_LONG).show();
                             ip_edit.requestFocus();
                         }
                     }
@@ -201,16 +224,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static void showSoftInputFromWindow(Activity activity, EditText editText) {
+    View focusView = null;
+
+    // 有edittext获得焦点时，back的行为修改为取消其焦点
+    // 没有焦点时则使用默认行为
+    @Override
+    public void onBackPressed() {
+        if (focusView != null){
+            focusView.clearFocus();
+            focusView = null;
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
+    public static void showSoftInput(Activity activity, EditText editText) {
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
-        opeSystemKeyBoard(activity);
+        opeSystemKeyBoard(editText);
     }
 
-    public static void opeSystemKeyBoard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
+    public static void opeSystemKeyBoard(View view) {
+        InputMethodManager imm =
+                (InputMethodManager) view.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
     }
 
     @Override
@@ -226,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
                 // 判断点击的点是否落在当前焦点所在的 view 上；
                 if (!r.contains(rawX, rawY)) {
                     view.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromInputMethod(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
         }

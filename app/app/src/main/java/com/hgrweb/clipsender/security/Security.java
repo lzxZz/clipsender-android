@@ -40,6 +40,7 @@ public class Security {
         System.arraycopy(zero12, 0, new_byte, source.length, 12-source.length);
         return new_byte;
     }
+
     private  byte[] getUnixTimeStamp(){
         long time = System.currentTimeMillis(); //ms
         time = time / 1000 ;  // s
@@ -51,7 +52,6 @@ public class Security {
         b[1] = (byte) (n >> 8 & 0xff);
         b[2] = (byte) (n >> 16 & 0xff);
         b[3] = (byte) (n >> 24 & 0xff);
-
         return b;
     }
     private byte[] generaKey(String src_key) throws UnsupportedEncodingException {
@@ -60,6 +60,7 @@ public class Security {
             key_byte = appendZeorTo12Byte(key_byte);
         }else{
             // 计算MD5,并截取前12字节
+            // TODO 好像没有完成截取前12字节
             key_byte = MD5(src_key);
         }
         key_byte = byteMerger(key_byte, getUnixTimeStamp());
@@ -69,12 +70,12 @@ public class Security {
     public byte[] encrypt(String sSrc,  String sKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         byte[] key_byte = generaKey(sKey);
-
         SecretKeySpec skeySpec = new SecretKeySpec(key_byte, "AES");
-        IvParameterSpec iv = new IvParameterSpec(iv_bytes);//使用CBC模式，需要一个向量iv，可增加加密算法的强度
+        //使用CBC模式，需要一个向量iv，可增加加密算法的强度
+        IvParameterSpec iv = new IvParameterSpec(iv_bytes);
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(sSrc.getBytes("UTF-8"));
-        return encrypted;//此处使用BASE64做转码。
+        return encrypted;
     }
 
     public static byte[] byteMerger(byte[] bt1, byte[] bt2){
