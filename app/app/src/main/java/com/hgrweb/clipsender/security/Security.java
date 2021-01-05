@@ -54,6 +54,7 @@ public class Security {
         b[3] = (byte) (n >> 24 & 0xff);
         return b;
     }
+
     private byte[] generaKey(String src_key) throws UnsupportedEncodingException {
         byte[] key_byte = src_key.getBytes("UTF-8");
         if (key_byte.length <= 12){

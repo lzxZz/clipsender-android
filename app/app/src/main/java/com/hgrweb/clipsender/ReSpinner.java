@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
-
 public class ReSpinner extends Spinner {
 
     public boolean isDropDownMenuShown = false;//标志下拉列表是否正在显示

@@ -13,7 +13,6 @@ public class UdpSender {
             InetAddress address = InetAddress.getByName(netAddress);
             datagramPacket = new DatagramPacket(
                 data, data.length, address, port);
-                
             datagramSocket.send(datagramPacket);
         } catch (SocketException e) {
             e.printStackTrace();

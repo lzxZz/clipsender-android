@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">clipsender</string>
+    <string name="app_name">ClipSender</string>
 
     <string name="preference_file_key">com.hgrweb.clipsender.setting_file</string>
     <string name="setting_ip">255.255.255.255</string>

@@ -266,8 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 // 判断点击的点是否落在当前焦点所在的 view 上；
                 if (!r.contains(rawX, rawY)) {
                     view.clearFocus();
-                    InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromInputMethod(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
         }
